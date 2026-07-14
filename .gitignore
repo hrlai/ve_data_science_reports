@@ -41,9 +41,12 @@ vignettes/*.pdf
 
 # Quarto build output
 _site/
+/.quarto/
+**/*.quarto_ipynb
 
 # translation temp files
 po/*~
 
 # RStudio Connect folder
 rsconnect/
+
