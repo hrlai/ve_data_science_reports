@@ -22,9 +22,14 @@ jobs:
         with:
           r-version: "4.2.0"
 
+      - name: Install pak
+        run: |
+          install.packages("pak")
+        shell: Rscript {0}
+
       - name: Install R Packages
         run: |
-          install.packages(c("DT", "tidyverse", "IssueTrackeR", "htmltools", "here"))
+          pak::pak(c("DT", "tidyverse", "IssueTrackeR", "htmltools", "here"))
         shell: Rscript {0}
 
       - name: Render and Publish
