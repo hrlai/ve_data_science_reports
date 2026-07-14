@@ -5,10 +5,6 @@ author:
 date: last-modified
 format:
   html:
-    toc: true
-    toc-expand: true
-    theme: sandstone
-    embed-resources: true
     other-links:
       - text: "GitHub Issues"
         icon: github
@@ -16,7 +12,6 @@ format:
       - text: "GitHub Milestones"
         icon: github
         href: https://github.com/ImperialCollegeLondon/ve_data_science/milestones
-output-file: "VE_Task Breakdown Soil Litter Hao Ran.html"
 title-block-banner: true
 comments:
   hypothesis: true
@@ -43,9 +38,10 @@ library(DT)
 library(tidyverse)
 library(IssueTrackeR)
 library(htmltools)
+library(here)
 
 # IssueTrackerR configs
-options(IssueTrackeR.dataset.dir = "data/derived/soil/gh_issues")
+options(IssueTrackeR.dataset.dir = here::here("data/derived/soil/gh_issues"))
 options(IssueTrackeR.owner = "ImperialCollegeLondon")
 options(IssueTrackeR.repo = "ve_data_science")
 
