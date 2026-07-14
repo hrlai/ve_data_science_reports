@@ -28,23 +28,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Check for draft helper script
-        id: helper
-        run: |
-          if [ -f .github/scripts/draft_waiting_for.R ]; then
-            echo "present=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "present=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - uses: r-lib/actions/setup-r@v2
-        if: steps.helper.outputs.present == 'true'
         with:
           r-version: "release"
           use-public-rspm: true
 
       - name: Install R dependencies
-        if: steps.helper.outputs.present == 'true'
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
           packages: |
@@ -55,14 +44,9 @@ jobs:
             any::glue
 
       - name: Update "Waiting for" section in report
-        if: steps.helper.outputs.present == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: Rscript .github/scripts/draft_waiting_for.R
-
-      - name: Skip auto-update when helper script is absent
-        if: steps.helper.outputs.present != 'true'
-        run: echo "No .github/scripts/draft_waiting_for.R helper found; skipping report rewrite."
 
       - name: Commit and push to draft branch
         id: push_draft
