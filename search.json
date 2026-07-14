@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "docs/index.html",
+    "href": "docs/index.html",
+    "title": "VE Data Science Reports",
+    "section": "",
+    "text": "Progress reports for the ve_data_science repository."
+  },
+  {
+    "objectID": "docs/index.html#reports",
+    "href": "docs/index.html#reports",
+    "title": "VE Data Science Reports",
+    "section": "Reports",
+    "text": "Reports\n\nSoil & Litter Progress Report"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html",
+    "href": "docs/soil_progress_report.html",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "",
+    "text": "I recently merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397).\n\n\n\n\nUrgent\n\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, arne-exe to review PR #371 — Demo for reading/writing Zarr outputs in R\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\n\nNot urgent\n\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation\n\n\n\n\n\n\nTeam to settle on folder structure\nA bug-free VE release that runs on Maliau 1 and 2 scenarios"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#lastest-description",
+    "href": "docs/soil_progress_report.html#lastest-description",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "",
+    "text": "I recently merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397)."
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#required-elements-waiting-for",
+    "href": "docs/soil_progress_report.html#required-elements-waiting-for",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "",
+    "text": "Urgent\n\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, arne-exe to review PR #371 — Demo for reading/writing Zarr outputs in R\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\n\nNot urgent\n\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#additional-notes",
+    "href": "docs/soil_progress_report.html#additional-notes",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "",
+    "text": "Team to settle on folder structure\nA bug-free VE release that runs on Maliau 1 and 2 scenarios"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-parameterisation",
+    "href": "docs/soil_progress_report.html#soil-parameterisation",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil parameterisation",
+    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n38% complete; 13 open; 8 closed"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-validation",
+    "href": "docs/soil_progress_report.html#soil-validation",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil validation",
+    "text": "Soil validation\nValidate soil and litter variables.\n\n\n\n\nProgress\n73% complete; 4 open; 11 closed"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-calibration",
+    "href": "docs/soil_progress_report.html#soil-calibration",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil calibration",
+    "text": "Soil calibration\nNot started yet."
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-sensitivity",
+    "href": "docs/soil_progress_report.html#soil-sensitivity",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil sensitivity",
+    "text": "Soil sensitivity\nSensitivity analysis for soil and litter.\n\n\n\n\nProgress\n71% complete; 2 open; 5 closed"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-input-data-phase-2",
+    "href": "docs/soil_progress_report.html#soil-input-data-phase-2",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil input data (phase 2)",
+    "text": "Soil input data (phase 2)\nFollow up to polish soil and litter input data for completeness.\n\n\n\n\nProgress\n33% complete; 10 open; 5 closed"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#soil-input-data-phase-1",
+    "href": "docs/soil_progress_report.html#soil-input-data-phase-1",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Soil input data (phase 1)",
+    "text": "Soil input data (phase 1)\nMVP of soil and litter input datasets using “Maliau” datasets. This milestone has been fully completed.\n\n\n\n\nProgress\n100% complete; 0 open; 38 closed"
+  },
+  {
+    "objectID": "docs/soil_progress_report.html#other-tasks",
+    "href": "docs/soil_progress_report.html#other-tasks",
+    "title": "Soil and Litter GitHub Issues Tracker",
+    "section": "Other tasks",
+    "text": "Other tasks\nThese are miscellaneous tasks not targetting any milestones, but are important for housekeeping and repo maintenance."
+  }
+]
