@@ -29,7 +29,7 @@ jobs:
 
       - name: Install R Packages
         run: |
-          pak::pak(c("DT", "tidyverse", "IssueTrackeR", "htmltools", "here"))
+          pak::pkg_install(c("DT", "tidyverse", "IssueTrackeR", "htmltools", "here"))
         shell: Rscript {0}
 
       - name: Render and Publish
