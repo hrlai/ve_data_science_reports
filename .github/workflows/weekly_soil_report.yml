@@ -1,0 +1,111 @@
+name: Weekly soil report draft
+
+on:
+  schedule:
+    # Every Monday at 09:00 SGT/MYT (UTC+8 = 01:00 UTC)
+    - cron: "0 1 * * MON"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: weekly-soil-report-draft-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+          use-public-rspm: true
+
+      - name: Install R dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gh
+            any::dplyr
+            any::purrr
+            any::lubridate
+            any::glue
+
+      - name: Update "Waiting for" section in report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: Rscript .github/scripts/draft_waiting_for.R
+
+      - name: Commit and push to draft branch
+        id: push_draft
+        run: |
+          # Always reset the draft branch so skipped weeks don't break automation
+          git fetch origin
+          if git ls-remote --exit-code --heads origin chore/weekly-soil-draft; then
+            git push origin --delete chore/weekly-soil-draft
+          fi
+
+          git checkout -b chore/weekly-soil-draft
+          git add analysis/soil/issue_tracker/gh_progress_report.qmd
+
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No changes, skipping push and PR."
+            exit 0
+          fi
+
+          git commit -m "chore: update waiting-for section [skip ci]"
+          git push origin chore/weekly-soil-draft
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update PR against main
+        if: steps.push_draft.outputs.has_changes == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+
+          EXISTING_PR_URL=$(gh pr list \
+            --base main \
+            --head chore/weekly-soil-draft \
+            --state open \
+            --json url \
+            --jq '.[0].url')
+
+          if [ -n "$EXISTING_PR_URL" ]; then
+            echo "Open PR already exists: $EXISTING_PR_URL"
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head chore/weekly-soil-draft \
+            --title "chore: weekly soil report draft – ${DATE}" \
+            --body "This is an automated draft to remind you to update the weekly soil report.
+
+          ## What was updated
+          The **\"Required elements (Waiting for)\"** section in
+          \`analysis/soil/issue_tracker/gh_progress_report.qmd\` has been rewritten
+          based on your open PRs with pending reviewers as of ${DATE}.
+
+          ## What still needs your attention
+          Please manually update:
+          - [ ] **Latest description** — summarise what you worked on this week
+          - [ ] **Required elements** — review and edit the auto-generated bullets below if needed
+          - [ ] **Additional notes** — anything else worth noting
+
+          Once done, merge this PR to keep \`main\` up to date.
+
+          Finally, compile the Quarto report locally and move the compiled HTML to Dropbox."
