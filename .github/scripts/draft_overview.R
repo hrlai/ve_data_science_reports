@@ -8,7 +8,7 @@
 # Usage (CI):       called from weekly_soil_report.yml
 #
 # Requires: gh, dplyr, purrr, lubridate, glue, ellmer
-# Needs:    GITHUB_TOKEN, ANTHROPIC_API_KEY env vars
+# Needs:    GITHUB_TOKEN, GOOGLE_API_KEY env vars
 
 library(gh)
 library(dplyr)

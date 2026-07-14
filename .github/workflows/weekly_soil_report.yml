@@ -47,12 +47,12 @@ jobs:
             any::ellmer
             any::here
 
-      # ANTHROPIC_API_KEY must be stored in GitHub repository secrets
+      # GOOGLE_API_KEY must be stored in GitHub repository secrets
       - name: Draft report overview sections
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: Rscript .github/scripts/draft_overview.R
 
       - name: Commit and push to draft branch
@@ -105,7 +105,7 @@ jobs:
           ## What was updated
           The **\"Lastest description\"** and **\"Required elements (Waiting for)\"** sections in
           \`docs/soil_progress_report.qmd\` have been rewritten automatically as of ${DATE}.
-          The description was drafted by an LLM (Claude) based on recent GitHub activity.
+          The description was drafted by an LLM (Google Gemini) based on recent GitHub activity.
           The waiting-for bullets were generated deterministically from open PRs with pending reviewers.
 
           ## What still needs your attention
