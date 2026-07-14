@@ -1,0 +1,18 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "VE Data Science Reports"
+  navbar:
+    left:
+      - href: docs/index.qmd
+        text: Home
+      - href: docs/soil_progress_report.qmd
+        text: Soil & Litter
+
+format:
+  html:
+    theme: sandstone
+    toc: true
+    toc-expand: true

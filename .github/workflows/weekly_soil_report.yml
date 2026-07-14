@@ -9,6 +9,8 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: weekly-soil-report-draft-${{ github.ref }}
@@ -42,11 +44,16 @@ jobs:
             any::purrr
             any::lubridate
             any::glue
+            any::ellmer
+            any::here
 
-      - name: Update "Waiting for" section in report
+      # ANTHROPIC_API_KEY must be stored in GitHub repository secrets
+      - name: Draft report overview sections
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: Rscript .github/scripts/draft_waiting_for.R
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: Rscript .github/scripts/draft_overview.R
 
       - name: Commit and push to draft branch
         id: push_draft
@@ -58,7 +65,7 @@ jobs:
           fi
 
           git checkout -b chore/weekly-soil-draft
-          git add analysis/soil/issue_tracker/gh_progress_report.qmd
+          git add docs/soil_progress_report.qmd
 
           if git diff --cached --quiet; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
@@ -66,7 +73,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: update waiting-for section [skip ci]"
+          git commit -m "chore: update report overview sections [skip ci]"
           git push origin chore/weekly-soil-draft
           echo "has_changes=true" >> "$GITHUB_OUTPUT"
 
@@ -96,16 +103,41 @@ jobs:
             --body "This is an automated draft to remind you to update the weekly soil report.
 
           ## What was updated
-          The **\"Required elements (Waiting for)\"** section in
-          \`analysis/soil/issue_tracker/gh_progress_report.qmd\` has been rewritten
-          based on your open PRs with pending reviewers as of ${DATE}.
+          The **\"Lastest description\"** and **\"Required elements (Waiting for)\"** sections in
+          \`docs/soil_progress_report.qmd\` have been rewritten automatically as of ${DATE}.
+          The description was drafted by an LLM (Claude) based on recent GitHub activity.
+          The waiting-for bullets were generated deterministically from open PRs with pending reviewers.
 
           ## What still needs your attention
-          Please manually update:
-          - [ ] **Latest description** — summarise what you worked on this week
-          - [ ] **Required elements** — review and edit the auto-generated bullets below if needed
+          Please manually review and edit:
+          - [ ] **Lastest description** — verify the LLM-drafted summary is accurate
+          - [ ] **Required elements** — review and edit the auto-generated bullets if needed
           - [ ] **Additional notes** — anything else worth noting
 
           Once done, merge this PR to keep \`main\` up to date.
+          The site will be re-rendered and deployed to GitHub Pages automatically."
 
-          Finally, compile the Quarto report locally and move the compiled HTML to Dropbox."
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install additional R dependencies for rendering
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::DT
+            any::tidyverse
+            any::IssueTrackeR
+            any::htmltools
+            any::here
+
+      - name: Render Quarto site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: quarto render
+
+      - name: Deploy to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
