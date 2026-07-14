@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "docs/index.html",
+    "href": "docs/index.html",
+    "title": "VE Data Science Reports",
+    "section": "",
+    "text": "Progress reports for the ve_data_science repository."
+  },
+  {
+    "objectID": "docs/index.html#reports",
+    "href": "docs/index.html#reports",
+    "title": "VE Data Science Reports",
+    "section": "Reports",
+    "text": "Reports\n\nSoil & Litter Progress Report"
+  },
+  {
     "objectID": "docs/soil_progress_report.html",
     "href": "docs/soil_progress_report.html",
     "title": "Soil and Litter GitHub Issues Tracker",
@@ -75,19 +89,5 @@
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Other tasks",
     "text": "Other tasks\nThese are miscellaneous tasks not targetting any milestones, but are important for housekeeping and repo maintenance."
-  },
-  {
-    "objectID": "docs/index.html",
-    "href": "docs/index.html",
-    "title": "VE Data Science Reports",
-    "section": "",
-    "text": "Progress reports for the ve_data_science repository."
-  },
-  {
-    "objectID": "docs/index.html#reports",
-    "href": "docs/index.html#reports",
-    "title": "VE Data Science Reports",
-    "section": "Reports",
-    "text": "Reports\n\nSoil & Litter Progress Report"
   }
 ]
