@@ -116,28 +116,3 @@ jobs:
 
           Once done, merge this PR to keep \`main\` up to date.
           The site will be re-rendered and deployed to GitHub Pages automatically."
-
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Install additional R dependencies for rendering
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::DT
-            any::tidyverse
-            any::IssueTrackeR
-            any::htmltools
-            any::here
-
-      - name: Render Quarto site
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: quarto render
-
-      - name: Deploy to GitHub Pages
-        uses: quarto-dev/quarto-actions/publish@v2
-        with:
-          target: gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
