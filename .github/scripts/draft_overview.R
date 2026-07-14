@@ -156,6 +156,7 @@ context_block <- glue(
 prompt <- glue(
   "You are helping an ecologist write the opening paragraph of their weekly progress report. ",
   "Write 2 to 4 sentences in the first person (e.g. 'I merged ...', 'I plan to ...'). ",
+  "Be terse and professional. Avoid self praising.",
   "Reference actual issue and PR numbers where relevant (e.g. '#123'). ",
   "Describe recent achievements and planned near-term focus based only on the data below. ",
   "If a recent Issue reference older Issues or PRs, include the latter concisely. ",
@@ -165,7 +166,7 @@ prompt <- glue(
 
 description_content <- tryCatch(
   {
-    chat <- ellmer::chat_anthropic(model = "claude-opus-4-5")
+    chat <- ellmer::chat_google_gemini()
     response <- chat$chat(prompt)
     trimws(response)
   },
