@@ -25,7 +25,7 @@ abstract: |
     [Subtasks](#sec-milestones) section is synchronised automatically with
     [GitHub Issues](https://github.com/ImperialCollegeLondon/ve_data_science/issues?q=is%3Aissue%20state%3Aopen%20author%3Ahrlai) and
     [Milestones](https://github.com/ImperialCollegeLondon/ve_data_science/milestones).
-    This report should reflect most of my tasks, which are almost 100% tracked
+    This report should reflect most of my tasks, which are almost all tracked
     on GitHub.
     The [Subtasks](#sec-milestones) GitHub Issue tracker tables show only Open
     issues by default. To view Closed issues, simply change the column's
@@ -41,7 +41,7 @@ library(htmltools)
 library(here)
 
 # IssueTrackerR configs
-options(IssueTrackeR.dataset.dir = here::here("data/derived/soil/gh_issues"))
+options(IssueTrackeR.dataset.dir = here::here("data/gh"))
 options(IssueTrackeR.owner = "ImperialCollegeLondon")
 options(IssueTrackeR.repo = "ve_data_science")
 
