@@ -145,16 +145,14 @@ issue_table <-
 
 ## Lastest description
 
-I recently merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397).
+This two weeks, I merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397). I also merged PR #411 to update soil layer depth terminology and PR #407 to reorganize the notebook folder. I also merged PR #371 to demonstrate R-based Zarr input/output, PR #387 (resolving #381) to generalize litter input scripts, and PR #366 (resolving #346) to implement derived variable functions. I plan to utilize these newly integrated derived variable calculations and reorganized notebooks in my upcoming data processing workflows.
 
 ## Required elements ("Waiting for")
 
 - Urgent
-  - Baizurah, TaranRallings, nickwctan to review PR [#330](https://github.com/ImperialCollegeLondon/ve_data_science/pull/330) — *329 examine animal continuous state variables from `maliau_2`*
+  - TaranRallings, nickwctan, Baizurah to review PR [#330](https://github.com/ImperialCollegeLondon/ve_data_science/pull/330) — *329 examine animal continuous state variables from `maliau_2`*
   - annarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR [#370](https://github.com/ImperialCollegeLondon/ve_data_science/pull/370) — *Discuss scenarios of data--prediction (mis)match for validation*
-  - annarallings, arne-exe to review PR [#371](https://github.com/ImperialCollegeLondon/ve_data_science/pull/371) — *Demo for reading/writing Zarr outputs in R*
   - annarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR [#373](https://github.com/ImperialCollegeLondon/ve_data_science/pull/373) — *Interactive map in R and Python*
-- Not urgent
   - davidorme, sallymatson to review PR [#384](https://github.com/ImperialCollegeLondon/ve_data_science/pull/384) — *Migrate to uv for dependency management and add how-to documentation*
 
 ## Additional notes
