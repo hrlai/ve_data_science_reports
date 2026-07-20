@@ -18,21 +18,21 @@
     "href": "docs/soil_progress_report.html",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "I recently merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397).\n\n\n\n\nUrgent\n\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, arne-exe to review PR #371 — Demo for reading/writing Zarr outputs in R\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\n\nNot urgent\n\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation\n\n\n\n\n\n\nTeam to settle on folder structure\nA bug-free VE release that runs on Maliau 1 and 2 scenarios"
+    "text": "This two weeks, I merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397). I also merged PR #411 to update soil layer depth terminology and PR #407 to reorganize the notebook folder. I also merged PR #371 to demonstrate R-based Zarr input/output, PR #387 (resolving #381) to generalize litter input scripts, and PR #366 (resolving #346) to implement derived variable functions. I plan to utilize these newly integrated derived variable calculations and reorganized notebooks in my upcoming data processing workflows.\n\n\n\n\nUrgent\n\nTaranRallings, nickwctan, Baizurah to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation\n\n\n\n\n\n\nTeam to settle on folder structure\nA bug-free VE release that runs on Maliau 1 and 2 scenarios"
   },
   {
     "objectID": "docs/soil_progress_report.html#lastest-description",
     "href": "docs/soil_progress_report.html#lastest-description",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "I recently merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397)."
+    "text": "This two weeks, I merged PRs #387 (addressing #381) and #379 (addressing #372), generalizing litter and soil input data scripts beyond Maliau. I also merged #366 to implement derived variable functions, fulfilling #346, and completed initial SAFE soil input data stage 1 (via #374). My near-term focus is preparing soil and litter input data for SAFE logged forests (#389), specifically addressing various nutrient pools (#390-#393) and belowground litter pools (#394), alongside determining the appropriate logging intensity representation (#397). I also merged PR #411 to update soil layer depth terminology and PR #407 to reorganize the notebook folder. I also merged PR #371 to demonstrate R-based Zarr input/output, PR #387 (resolving #381) to generalize litter input scripts, and PR #366 (resolving #346) to implement derived variable functions. I plan to utilize these newly integrated derived variable calculations and reorganized notebooks in my upcoming data processing workflows."
   },
   {
     "objectID": "docs/soil_progress_report.html#required-elements-waiting-for",
     "href": "docs/soil_progress_report.html#required-elements-waiting-for",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "Urgent\n\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, arne-exe to review PR #371 — Demo for reading/writing Zarr outputs in R\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\n\nNot urgent\n\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation"
+    "text": "Urgent\n\nTaranRallings, nickwctan, Baizurah to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\ndavidorme, sallymatson to review PR #384 — Migrate to uv for dependency management and add how-to documentation"
   },
   {
     "objectID": "docs/soil_progress_report.html#additional-notes",
@@ -46,7 +46,7 @@
     "href": "docs/soil_progress_report.html#soil-parameterisation",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil parameterisation",
-    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n38% complete; 13 open; 8 closed"
+    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n36% complete; 14 open; 8 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-validation",
@@ -74,7 +74,7 @@
     "href": "docs/soil_progress_report.html#soil-input-data-phase-2",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil input data (phase 2)",
-    "text": "Soil input data (phase 2)\nFollow up to polish soil and litter input data for completeness.\n\n\n\n\nProgress\n33% complete; 10 open; 5 closed"
+    "text": "Soil input data (phase 2)\nFollow up to polish soil and litter input data for completeness.\n\n\n\n\nProgress\n31% complete; 11 open; 5 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-input-data-phase-1",
