@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
   pages: write
   id-token: write
 
@@ -55,64 +54,15 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: Rscript .github/scripts/draft_overview.R
 
-      - name: Commit and push to draft branch
-        id: push_draft
+      - name: Commit and push to main
         run: |
-          # Always reset the draft branch so skipped weeks don't break automation
-          git fetch origin
-          if git ls-remote --exit-code --heads origin chore/weekly-soil-draft; then
-            git push origin --delete chore/weekly-soil-draft
-          fi
-
-          git checkout -b chore/weekly-soil-draft
           git add docs/soil_progress_report.qmd
 
           if git diff --cached --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No changes, skipping push and PR."
+            echo "No changes, skipping push."
             exit 0
           fi
 
-          git commit -m "chore: update report overview sections [skip ci]"
-          git push origin chore/weekly-soil-draft
-          echo "has_changes=true" >> "$GITHUB_OUTPUT"
-
-      - name: Open or update PR against main
-        if: steps.push_draft.outputs.has_changes == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
           DATE=$(date +%Y-%m-%d)
-
-          EXISTING_PR_URL=$(gh pr list \
-            --base main \
-            --head chore/weekly-soil-draft \
-            --state open \
-            --json url \
-            --jq '.[0].url')
-
-          if [ -n "$EXISTING_PR_URL" ]; then
-            echo "Open PR already exists: $EXISTING_PR_URL"
-            exit 0
-          fi
-
-          gh pr create \
-            --base main \
-            --head chore/weekly-soil-draft \
-            --title "chore: weekly soil report draft – ${DATE}" \
-            --body "This is an automated draft to remind you to update the weekly soil report.
-
-          ## What was updated
-          The **\"Lastest description\"** and **\"Required elements (Waiting for)\"** sections in
-          \`docs/soil_progress_report.qmd\` have been rewritten automatically as of ${DATE}.
-          The description was drafted by an LLM (Google Gemini) based on recent GitHub activity.
-          The waiting-for bullets were generated deterministically from open PRs with pending reviewers.
-
-          ## What still needs your attention
-          Please manually review and edit:
-          - [ ] **Lastest description** — verify the LLM-drafted summary is accurate
-          - [ ] **Required elements** — review and edit the auto-generated bullets if needed
-          - [ ] **Additional notes** — anything else worth noting
-
-          Once done, merge this PR to keep \`main\` up to date.
-          The site will be re-rendered and deployed to GitHub Pages automatically."
+          git commit -m "chore: weekly soil report draft – ${DATE} [skip ci]"
+          git push origin main
