@@ -80,7 +80,11 @@ jobs:
       - name: Open or update PR against main
         if: steps.push_draft.outputs.has_changes == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT_TOKEN requires a personal access token with `repo` scope so that
+          # GitHub Actions can create pull requests (the default GITHUB_TOKEN is
+          # blocked from doing so by the repository/organisation setting
+          # "Allow GitHub Actions to create and approve pull requests").
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           DATE=$(date +%Y-%m-%d)
 
