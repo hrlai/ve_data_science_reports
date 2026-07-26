@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "docs/index.html",
-    "href": "docs/index.html",
-    "title": "VE Data Science Reports",
-    "section": "",
-    "text": "Progress reports for the ve_data_science repository."
-  },
-  {
-    "objectID": "docs/index.html#reports",
-    "href": "docs/index.html#reports",
-    "title": "VE Data Science Reports",
-    "section": "Reports",
-    "text": "Reports\n\nSoil & Litter Progress Report"
-  },
-  {
     "objectID": "docs/soil_progress_report.html",
     "href": "docs/soil_progress_report.html",
     "title": "Soil and Litter GitHub Issues Tracker",
@@ -46,14 +32,14 @@
     "href": "docs/soil_progress_report.html#soil-parameterisation",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil parameterisation",
-    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n36% complete; 14 open; 8 closed"
+    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n39% complete; 14 open; 9 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-validation",
     "href": "docs/soil_progress_report.html#soil-validation",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil validation",
-    "text": "Soil validation\nValidate soil and litter variables.\n\n\n\n\nProgress\n73% complete; 4 open; 11 closed"
+    "text": "Soil validation\nValidate soil and litter variables.\n\n\n\n\nProgress\n69% complete; 5 open; 11 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-calibration",
@@ -67,7 +53,7 @@
     "href": "docs/soil_progress_report.html#soil-sensitivity",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil sensitivity",
-    "text": "Soil sensitivity\nSensitivity analysis for soil and litter.\n\n\n\n\nProgress\n71% complete; 2 open; 5 closed"
+    "text": "Soil sensitivity\nSensitivity analysis for soil and litter.\n\n\n\n\nProgress\n62% complete; 3 open; 5 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-input-data-phase-2",
@@ -89,5 +75,19 @@
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Other tasks",
     "text": "Other tasks\nThese are miscellaneous tasks not targetting any milestones, but are important for housekeeping and repo maintenance."
+  },
+  {
+    "objectID": "docs/index.html",
+    "href": "docs/index.html",
+    "title": "VE Data Science Reports",
+    "section": "",
+    "text": "Progress reports for the ve_data_science repository."
+  },
+  {
+    "objectID": "docs/index.html#reports",
+    "href": "docs/index.html#reports",
+    "title": "VE Data Science Reports",
+    "section": "Reports",
+    "text": "Reports\n\nSoil & Litter Progress Report"
   }
 ]
