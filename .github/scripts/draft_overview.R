@@ -363,7 +363,7 @@ prompt <- glue(
 
   Write a single paragraph of 3 to 5 sentences in the first person. Keep the tone terse, professional, and factual. Do not use self-congratulation, filler, bullet points, headings, or markdown.
 
-  Base the paragraph only on the source material provided below. Summarize both recent achievements and near-term planned focus. Organize the content implicitly by grouping related work where appropriate across these categories: input data, model parameterisation, calibration, validation, and general tools. Do this naturally in prose rather than by naming the categories mechanically if that would make the paragraph awkward.
+  Base the paragraph only on the source material provided below. Summarize both recent achievements (based on closed Issues and PRs) and near-term planned focus (based on open Issues, comments and open PRs). Organize the content implicitly by grouping related work where appropriate across these categories: input data, model parameterisation, calibration, validation, and general tools. Do this naturally in prose rather than by naming the categories mechanically if that would make the paragraph awkward.
 
   When an issue, pull request, or issue comment is relevant, reference the actual number exactly as given, for example #123. If the output format supports links, render each issue or PR number as a hyperlink to its URL and use the issue or PR title as hover text; if the output format does not support that, keep the plain reference number and do not invent formatting. If a recent issue references older issues or PRs that materially matter for context, mention those older references briefly and only if they help explain the current work.
 
