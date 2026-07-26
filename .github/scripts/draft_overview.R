@@ -51,6 +51,42 @@ lines <- readLines(qmd)
 
 since_7d <- format(Sys.time() - days(7), "%Y-%m-%dT%H:%M:%SZ")
 
+or_else <- function(x, y) {
+  if (is.null(x) || length(x) == 0) {
+    y
+  } else {
+    x
+  }
+}
+
+bind_rows_or_empty <- function(x, .f, empty) {
+  if (length(x) == 0) {
+    return(empty)
+  }
+
+  map_dfr(x, .f)
+}
+
+normalize_excerpt <- function(x, width = 140) {
+  x <- or_else(x, "")
+  x <- gsub("[[:space:]]+", " ", x)
+  x <- trimws(x)
+
+  if (identical(x, "")) {
+    return(NA_character_)
+  }
+
+  if (nchar(x) > width) {
+    paste0(substr(x, 1, width - 1), "…")
+  } else {
+    x
+  }
+}
+
+issue_number_from_url <- function(x) {
+  as.integer(sub(".*/issues/([0-9]+)$", "\\1", x))
+}
+
 # Fetch recently merged PRs (last 7 days, by hrlai)
 raw_merged_prs <- tryCatch(
   gh(
@@ -60,19 +96,29 @@ raw_merged_prs <- tryCatch(
     state = "closed",
     sort = "updated",
     direction = "desc",
-    .limit = 20
+    .limit = Inf
   ),
   error = function(e) list()
 )
 
-merged_prs <- tibble(
-  number = map_int(raw_merged_prs, "number"),
-  title = map_chr(raw_merged_prs, "title"),
-  html_url = map_chr(raw_merged_prs, "html_url"),
-  author = map_chr(raw_merged_prs, c("user", "login")),
-  merged_at = map_chr(raw_merged_prs, function(p) {
-    p$merged_at %||% NA_character_
-  })
+merged_prs <- bind_rows_or_empty(
+  raw_merged_prs,
+  \(p) {
+    tibble(
+      number = p$number,
+      title = p$title,
+      html_url = p$html_url,
+      author = p$user$login,
+      merged_at = or_else(p$merged_at, NA_character_)
+    )
+  },
+  empty = tibble(
+    number = integer(),
+    title = character(),
+    html_url = character(),
+    author = character(),
+    merged_at = character()
+  )
 ) |>
   filter(
     author == user,
@@ -88,17 +134,29 @@ raw_closed_issues <- tryCatch(
     repo = repo,
     state = "closed",
     since = since_7d,
-    .limit = 20
+    .limit = Inf
   ),
   error = function(e) list()
 )
 
-closed_issues <- tibble(
-  number = map_int(raw_closed_issues, "number"),
-  title = map_chr(raw_closed_issues, "title"),
-  html_url = map_chr(raw_closed_issues, "html_url"),
-  author = map_chr(raw_closed_issues, c("user", "login")),
-  is_pr = map_lgl(raw_closed_issues, function(i) !is.null(i$pull_request))
+closed_issues <- bind_rows_or_empty(
+  raw_closed_issues,
+  \(i) {
+    tibble(
+      number = i$number,
+      title = i$title,
+      html_url = i$html_url,
+      author = i$user$login,
+      is_pr = !is.null(i$pull_request)
+    )
+  },
+  empty = tibble(
+    number = integer(),
+    title = character(),
+    html_url = character(),
+    author = character(),
+    is_pr = logical()
+  )
 ) |>
   filter(author == user, !is_pr)
 
@@ -110,24 +168,149 @@ raw_new_issues <- tryCatch(
     repo = repo,
     state = "open",
     since = since_7d,
-    .limit = 20
+    .limit = Inf
   ),
   error = function(e) list()
 )
 
-new_issues <- tibble(
-  number = map_int(raw_new_issues, "number"),
-  title = map_chr(raw_new_issues, "title"),
-  html_url = map_chr(raw_new_issues, "html_url"),
-  author = map_chr(raw_new_issues, c("user", "login")),
-  created_at = map_chr(raw_new_issues, "created_at"),
-  is_pr = map_lgl(raw_new_issues, function(i) !is.null(i$pull_request))
+new_issues <- bind_rows_or_empty(
+  raw_new_issues,
+  \(i) {
+    tibble(
+      number = i$number,
+      title = i$title,
+      html_url = i$html_url,
+      author = i$user$login,
+      created_at = i$created_at,
+      is_pr = !is.null(i$pull_request)
+    )
+  },
+  empty = tibble(
+    number = integer(),
+    title = character(),
+    html_url = character(),
+    author = character(),
+    created_at = character(),
+    is_pr = logical()
+  )
 ) |>
   filter(
     author == user,
     !is_pr,
     ymd_hms(created_at) >= ymd_hms(since_7d)
   )
+
+# Fetch PRs opened in the last 7 days (by hrlai)
+raw_opened_prs <- tryCatch(
+  gh(
+    "/repos/{owner}/{repo}/pulls",
+    owner = owner,
+    repo = repo,
+    state = "open",
+    sort = "created",
+    direction = "desc",
+    .limit = Inf
+  ),
+  error = function(e) list()
+)
+
+opened_prs <- bind_rows_or_empty(
+  raw_opened_prs,
+  \(p) {
+    tibble(
+      number = p$number,
+      title = p$title,
+      html_url = p$html_url,
+      author = p$user$login,
+      created_at = p$created_at
+    )
+  },
+  empty = tibble(
+    number = integer(),
+    title = character(),
+    html_url = character(),
+    author = character(),
+    created_at = character()
+  )
+) |>
+  filter(author == user, ymd_hms(created_at) >= ymd_hms(since_7d))
+
+# Fetch recent issue comments and recent issue metadata for enrichment
+raw_recent_items <- tryCatch(
+  gh(
+    "/repos/{owner}/{repo}/issues",
+    owner = owner,
+    repo = repo,
+    state = "all",
+    since = since_7d,
+    .limit = Inf
+  ),
+  error = function(e) list()
+)
+
+recent_items <- bind_rows_or_empty(
+  raw_recent_items,
+  \(i) {
+    tibble(
+      number = i$number,
+      title = i$title,
+      html_url = i$html_url,
+      is_pr = !is.null(i$pull_request)
+    )
+  },
+  empty = tibble(
+    number = integer(),
+    title = character(),
+    html_url = character(),
+    is_pr = logical()
+  )
+)
+
+raw_issue_comments <- tryCatch(
+  gh(
+    "/repos/{owner}/{repo}/issues/comments",
+    owner = owner,
+    repo = repo,
+    since = since_7d,
+    sort = "updated",
+    direction = "desc",
+    .limit = Inf
+  ),
+  error = function(e) list()
+)
+
+issue_comments <- bind_rows_or_empty(
+  raw_issue_comments,
+  \(comment) {
+    tibble(
+      comment_id = comment$id,
+      issue_number = issue_number_from_url(comment$issue_url),
+      comment_url = comment$html_url,
+      comment_author = comment$user$login,
+      created_at = comment$created_at,
+      body_excerpt = normalize_excerpt(comment$body)
+    )
+  },
+  empty = tibble(
+    comment_id = integer(),
+    issue_number = integer(),
+    comment_url = character(),
+    comment_author = character(),
+    created_at = character(),
+    body_excerpt = character()
+  )
+) |>
+  filter(comment_author == user, ymd_hms(created_at) >= ymd_hms(since_7d)) |>
+  left_join(recent_items, by = c("issue_number" = "number")) |>
+  filter(is.na(is_pr) | !is_pr) |>
+  mutate(
+    title = coalesce(title, paste("Issue", issue_number)),
+    html_url = coalesce(
+      html_url,
+      glue("https://github.com/{owner}/{repo}/issues/{issue_number}")
+    )
+  ) |>
+  select(issue_number, title, html_url, comment_url, body_excerpt, created_at)
 
 # Build context summary for the LLM
 fmt_items <- function(
@@ -147,10 +330,31 @@ fmt_items <- function(
     paste(collapse = "\n")
 }
 
+fmt_comment_items <- function(df) {
+  if (nrow(df) == 0) {
+    return("(none)")
+  }
+
+  map_chr(seq_len(nrow(df)), function(i) {
+    excerpt <- if (is.na(df$body_excerpt[i])) {
+      ""
+    } else {
+      glue(" — {df$body_excerpt[i]}")
+    }
+
+    glue(
+      "  - #{df$issue_number[i]}: {df$title[i]}{excerpt} ({df$comment_url[i]})"
+    )
+  }) |>
+    paste(collapse = "\n")
+}
+
 context_block <- glue(
   "Merged PRs (last 7 days):\n{fmt_items(merged_prs)}\n\n",
   "Closed issues (last 7 days):\n{fmt_items(closed_issues)}\n\n",
-  "Newly opened issues (last 7 days):\n{fmt_items(new_issues)}"
+  "Newly opened issues (last 7 days):\n{fmt_items(new_issues)}\n\n",
+  "Opened PRs (last 7 days):\n{fmt_items(opened_prs)}\n\n",
+  "Issue comments by {user} (last 7 days):\n{fmt_comment_items(issue_comments)}"
 )
 
 prompt <- glue(
