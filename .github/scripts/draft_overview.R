@@ -154,13 +154,22 @@ context_block <- glue(
 )
 
 prompt <- glue(
-  "You are helping an ecologist write the opening paragraph of their weekly progress report. ",
-  "Write 2 to 4 sentences in the first person (e.g. 'I merged ...', 'I plan to ...'). ",
-  "Be terse and professional. Avoid self praising.",
-  "Reference actual issue and PR numbers where relevant (e.g. '#123'). ",
-  "Describe recent achievements and planned near-term focus based only on the data below. ",
-  "If a recent Issue reference older Issues or PRs, include the latter concisely. ",
-  "Do not add bullet points, headings, or any markdown formatting — plain prose only.\n\n",
+  "
+  You are helping an ecologist draft the opening paragraph of a weekly progress report.
+
+  Write a single paragraph of 3 to 5 sentences in the first person. Keep the tone terse, professional, and factual. Do not use self-congratulation, filler, bullet points, headings, or markdown.
+
+  Base the paragraph only on the source material provided below. Summarize both recent achievements and near-term planned focus. Organize the content implicitly by grouping related work where appropriate across these categories: input data, model parameterisation, calibration, validation, and general tools. Do this naturally in prose rather than by naming the categories mechanically if that would make the paragraph awkward.
+
+  When an issue, pull request, or issue comment is relevant, reference the actual number exactly as given, for example #123. If the output format supports links, render each issue or PR number as a hyperlink to its URL and use the issue or PR title as hover text; if the output format does not support that, keep the plain reference number and do not invent formatting. If a recent issue references older issues or PRs that materially matter for context, mention those older references briefly and only if they help explain the current work.
+
+  Treat issue comments as evidence of recent discussion, clarification, or coordination. Do not present commenting activity by itself as a completed outcome unless the surrounding source material supports that interpretation.
+
+  If the source material shows that a task involved learning a new method, tool, or workflow, mention that briefly, especially when it appears relevant for shared team learning. Do not infer progress, intent, or significance beyond what the source material supports.
+
+  Prioritize specificity, compression, and accurate grouping over completeness. If the source material is thin or uneven, write a restrained paragraph that reflects that rather than overfilling gaps.
+  \n\n
+  ",
   "{context_block}"
 )
 
