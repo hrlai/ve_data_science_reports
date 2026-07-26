@@ -361,7 +361,7 @@ prompt <- glue(
   "
   You are helping an ecologist draft the opening paragraph of a weekly progress report.
 
-  Write a single paragraph of 3 to 5 sentences in the first person. Keep the tone terse, professional, and factual. Do not use self-congratulation, filler, bullet points, headings, or markdown.
+  Write a single paragraph of 3 to 5 sentences in the first person 'I'. Keep the tone terse, professional, and factual. Do not use self-congratulation, filler, bullet points, headings, or markdown.
 
   Base the paragraph only on the source material provided below. Summarize both recent achievements (based on closed Issues and PRs) and near-term planned focus (based on open Issues, comments and open PRs). Organize the content implicitly by grouping related work where appropriate across these categories: input data, model parameterisation, calibration, validation, and general tools. Do this naturally in prose rather than by naming the categories mechanically if that would make the paragraph awkward.
 
