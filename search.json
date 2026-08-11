@@ -4,35 +4,35 @@
     "href": "docs/soil_progress_report.html",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "I completed several updates to the soil and litter validation database, which included incorporating temporal and spatiotemporal data (#466, #468), refactoring unit conversions (#463), and updating workflow documentation (#454). Regarding input data and calibration, I updated the Maliau change log to reflect enhanced soil microbial definitions (#456) and resolved a netCDF conversion transpose bug that affected the soil and litter carbon-nitrogen-phosphorus ratio troubleshooting (#464, addressing #455). My immediate focus is to complete the first pass of the soil and litter validation pipeline. Additionally, I will continue coordinating on satellite EVI data selection for the SAFE project area (#452) and structuring a weighted sum of errors for model calibration (#428).\n\n\n\n\nUrgent\n\ndavidorme, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #384 — Migrate to uv for dependency management and add how-to documentation\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\n\nNot urgent\n\nannarallings, davidorme, nickwctan, arne-exe to review PR #457 — Enhance R script template to facilitate the newly added AGENTS.md\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\nannarallings, davidorme to review PR #422 — Pin mkdocs-material version to 9.7.0"
+    "text": "I resolved an issue where initial soil carbon and nitrogen densities were too high by correcting unit conversions in our input data pipeline (#492, #493). I also completed discussions on data-prediction mismatch scenarios for validation (#370) and updated general project tools, which included transitioning to uv for dependency management (#384, #480), updating R tools for Zarr (#470), and adding interactive map functionality (#373). I have also finished building the soil and litter validation pipeline (#487). Next step is to get the calibration pipeline sketched, but first I need to revisit the sensitivity analysis.\n\n\n\n\nUrgent\n\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #487 — Soil and litter validation pipeline (first pass)\nTaranRallings, nickwctan, Baizurah to review PR #330 — 329 examine animal continuous state variables from maliau_2\n\nNot urgent\n\nannarallings, davidorme to review PR #422 — Pin mkdocs-material version to 9.7.0"
   },
   {
     "objectID": "docs/soil_progress_report.html#lastest-description",
     "href": "docs/soil_progress_report.html#lastest-description",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "I completed several updates to the soil and litter validation database, which included incorporating temporal and spatiotemporal data (#466, #468), refactoring unit conversions (#463), and updating workflow documentation (#454). Regarding input data and calibration, I updated the Maliau change log to reflect enhanced soil microbial definitions (#456) and resolved a netCDF conversion transpose bug that affected the soil and litter carbon-nitrogen-phosphorus ratio troubleshooting (#464, addressing #455). My immediate focus is to complete the first pass of the soil and litter validation pipeline. Additionally, I will continue coordinating on satellite EVI data selection for the SAFE project area (#452) and structuring a weighted sum of errors for model calibration (#428)."
+    "text": "I resolved an issue where initial soil carbon and nitrogen densities were too high by correcting unit conversions in our input data pipeline (#492, #493). I also completed discussions on data-prediction mismatch scenarios for validation (#370) and updated general project tools, which included transitioning to uv for dependency management (#384, #480), updating R tools for Zarr (#470), and adding interactive map functionality (#373). I have also finished building the soil and litter validation pipeline (#487). Next step is to get the calibration pipeline sketched, but first I need to revisit the sensitivity analysis."
   },
   {
     "objectID": "docs/soil_progress_report.html#required-elements-waiting-for",
     "href": "docs/soil_progress_report.html#required-elements-waiting-for",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "",
-    "text": "Urgent\n\ndavidorme, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #384 — Migrate to uv for dependency management and add how-to documentation\nBaizurah, TaranRallings, nickwctan to review PR #330 — 329 examine animal continuous state variables from maliau_2\nannarallings, arne-exe, Baizurah, lelavathy to review PR #370 — Discuss scenarios of data–prediction (mis)match for validation\n\nNot urgent\n\nannarallings, davidorme, nickwctan, arne-exe to review PR #457 — Enhance R script template to facilitate the newly added AGENTS.md\nannarallings, sallymatson, nickwctan, arne-exe, Baizurah, lelavathy to review PR #373 — Interactive map in R and Python\nannarallings, davidorme to review PR #422 — Pin mkdocs-material version to 9.7.0"
+    "text": "Urgent\n\nannarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR #487 — Soil and litter validation pipeline (first pass)\nTaranRallings, nickwctan, Baizurah to review PR #330 — 329 examine animal continuous state variables from maliau_2\n\nNot urgent\n\nannarallings, davidorme to review PR #422 — Pin mkdocs-material version to 9.7.0"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-parameterisation",
     "href": "docs/soil_progress_report.html#soil-parameterisation",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil parameterisation",
-    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n38% complete; 15 open; 9 closed"
+    "text": "Soil parameterisation\nParameterise soil and litter constants with empirical data or best-guess estimates.\n\n\n\n\nProgress\n46% complete; 13 open; 11 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-validation",
     "href": "docs/soil_progress_report.html#soil-validation",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil validation",
-    "text": "Soil validation\nValidate soil and litter variables.\n\n\n\n\nProgress\n65% complete; 6 open; 11 closed"
+    "text": "Soil validation\nValidate soil and litter variables.\n\n\n\n\nProgress\n67% complete; 6 open; 12 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-calibration",
@@ -46,7 +46,7 @@
     "href": "docs/soil_progress_report.html#soil-sensitivity",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil sensitivity",
-    "text": "Soil sensitivity\nSensitivity analysis for soil and litter.\n\n\n\n\nProgress\n50% complete; 5 open; 5 closed"
+    "text": "Soil sensitivity\nSensitivity analysis for soil and litter.\n\n\n\n\nProgress\n45% complete; 6 open; 5 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#soil-input-data-phase-2",
@@ -60,7 +60,7 @@
     "href": "docs/soil_progress_report.html#soil-input-data-phase-1",
     "title": "Soil and Litter GitHub Issues Tracker",
     "section": "Soil input data (phase 1)",
-    "text": "Soil input data (phase 1)\nMVP of soil and litter input datasets using “Maliau” datasets. This milestone has been fully completed.\n\n\n\n\nProgress\n95% complete; 2 open; 39 closed"
+    "text": "Soil input data (phase 1)\nMVP of soil and litter input datasets using “Maliau” datasets. This milestone has been fully completed.\n\n\n\n\nProgress\n93% complete; 3 open; 42 closed"
   },
   {
     "objectID": "docs/soil_progress_report.html#other-tasks",
