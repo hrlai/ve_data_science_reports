@@ -405,19 +405,51 @@ prompt <- glue(
   "
   You are helping an ecologist draft the opening section of a weekly progress report.
 
-  Write a concise, first-person summary in plain markdown. Split the summary into two short subsections: 'Urgent and High' and 'Medium and Low'. Keep each subsection tight and easy to scan, using one compact paragraph or a couple of bullets. Keep the tone terse, professional, and factual. Do not use self-congratulation or filler.
+  Write the report in plain Markdown using first person singular ('I'). Base the report only on the source material I provide. Do not infer progress, intent, priority, or significance beyond what the material supports.
 
-  Base the summary only on the source material provided below. Prioritize recent achievements from closed Issues and PRs, then near-term planned focus from open Issues, comments, and open PRs. Use the priority field on open Issues when it is present to sort the summary. Treat issues labelled Blocking or Blocked as Urgent; if an issue has no explicit priority, treat Blocking or Blocked as High/Urgent by default. Place High/Urgent items before Medium/Low items.
+  Output exactly this structure under the heading `# Overview`:
 
-  Group related work into the broader workstream where that helps show the major areas of work, the tasks needed to complete them, and what has progressed or hit a wall. Use parent issues or linked PRs briefly when they clarify scope or remaining work, but do not force that detail into every item.
+    ## Progress: closed Issues and PRs
 
-  When an issue, pull request, or issue comment is relevant, reference the actual number exactly as given, for example #123. If the output format supports links, render each issue or PR number as a hyperlink to its URL and use the issue or PR title as hover text; if the output format does not support that, keep the plain reference number and do not invent formatting. If a recent issue references older issues or PRs that materially matter for context, mention those older references briefly and only if they help explain the current work.
+    ## TODO: pending Issues and PRs
+    ### Urgent and High priority
 
-  Treat issue comments as evidence of recent discussion, clarification, or coordination. Do not present commenting activity by itself as a completed outcome unless the surrounding source material supports that interpretation.
+    ### Medium and Low priority
 
-  If the source material shows that a task involved learning a new method, tool, or workflow, mention that briefly, especially when it appears relevant for shared team learning. Do not infer progress, intent, or significance beyond what the source material supports.
+  Keep each subsection tight and easy to scan. Use either one compact paragraph or at most a couple of short bullets per subsection. Keep the tone terse, professional, factual, and free of filler or self-congratulation.
 
-  Prioritize specificity, compression, and accurate grouping over completeness. If the source material is thin or uneven, write a restrained summary that reflects that rather than overfilling gaps.
+  Use these decision rules:
+  - In `Progress`, summarize the most relevant recent achievements from closed issues and closed PRs.
+  - In `TODO`, summarize the most relevant near-term work from open issues, open PRs, and issue comments that indicate current discussion, coordination, clarification, or blockers.
+  - Use the `priority` field on open issues when it is present to sort pending work.
+  - Treat issues labeled `Blocking` or `Blocked` as Urgent.
+  - If an issue has no explicit priority but is labeled `Blocking` or `Blocked`, treat it as Urgent/High by default.
+  - Place Urgent/High items before Medium/Low items.
+
+  Group related items into broader workstreams when that makes the report clearer. Use parent issues or linked PRs briefly when they help explain scope, recent progress, dependencies, or what is still blocked, but do not force that detail into every item.
+
+  When an issue, PR, or issue comment is relevant, reference its actual number exactly as given, for example `#123`. If the chat interface supports links, render each issue or PR number as a hyperlink to its URL and use the issue or PR title as hover text. If links are not supported, keep the plain reference number and do not invent formatting.
+
+  Treat comments as evidence of discussion or coordination, not as completed outcomes unless the surrounding source material clearly supports that interpretation.
+
+  If the source material shows that work required learning a new method, tool, or workflow, mention that briefly when it appears relevant for shared team learning.
+
+  Prioritize specificity, compression, accurate grouping, and realistic emphasis over completeness. If the source material is thin or uneven, write a restrained summary that reflects that.
+
+  Before writing, read all source material and identify:
+  1. Which closed items represent actual completed progress.
+  2. Which open items represent near-term planned work.
+  3. Which pending items belong in Urgent/High versus Medium/Low.
+  4. Which related items should be grouped into the same workstream.
+
+  Before you finish, check that:
+  - the structure matches exactly,
+  - every claim is grounded in the source material,
+  - priorities are sorted correctly,
+  - comments are not overstated as outcomes,
+  - and the writing stays concise.
+
+  Take time to think through this carefully before responding.
   \n\n
   ",
   "{context_block}"
