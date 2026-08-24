@@ -18,18 +18,6 @@ comments:
 execute:
   echo: false
   warning: false
-abstract-title: Preamble
-abstract: |
-    This is a semi-automated report that I update weekly.
-    The [Overview](#sec-overview) section is written manually, while the
-    [Subtasks](#sec-milestones) section is synchronised automatically with
-    [GitHub Issues](https://github.com/ImperialCollegeLondon/ve_data_science/issues?q=is%3Aissue%20state%3Aopen%20author%3Ahrlai) and
-    [Milestones](https://github.com/ImperialCollegeLondon/ve_data_science/milestones).
-    This report should reflect most of my tasks, which are almost all tracked
-    on GitHub.
-    The [Subtasks](#sec-milestones) GitHub Issue tracker tables show only Open
-    issues by default. To view Closed issues, simply change the column's
-    filter.
 ---
 
 ```{r}
@@ -143,20 +131,17 @@ issue_table <-
 
 # Overview {#sec-overview}
 
-## Lastest description
+## Progress: closed Issues and PRs
+I updated the validation workflow by refactoring dataset screening ([#514](https://github.com/ImperialCollegeLondon/ve_data_science/pull/514 "Validation: Refactor log_dataset to screen_dataset and add_schema to improve dataset screening")), switching to a per-dataset schema ([#519](https://github.com/ImperialCollegeLondon/ve_data_science/pull/519 "Validation: switch to per-dataset schema for improved maintainability")), refining database building ([#522](https://github.com/ImperialCollegeLondon/ve_data_science/pull/522 "Validation: refine build_validation_database()")), and triaging soil-litter issues ([#531](https://github.com/ImperialCollegeLondon/ve_data_science/issues/531 "Triage soil-litter Issues to improve progress reporting")). I also completed Stage 2 of adding validation datasets ([#525](https://github.com/ImperialCollegeLondon/ve_data_science/issues/525 "Add soil and litter validation datasets (stage 2)")) and screened more soil and litter datasets ([#526](https://github.com/ImperialCollegeLondon/ve_data_science/pull/526 "Validation: screen more soil and litter datasets")). Codebase and tooling updates included adapting `subset_nc()` to handle Zarr outputs ([#510](https://github.com/ImperialCollegeLondon/ve_data_science/pull/510 "509 update subset_nc()"), [#509](https://github.com/ImperialCollegeLondon/ve_data_science/issues/509 "Update subset_nc() to cope with Zarr output vs netCDF input")), parsing the VE codebase to build a constants database for calibration ([#508](https://github.com/ImperialCollegeLondon/ve_data_science/pull/508 "Return of the Jedi: parsing VE codebase to build a constant database")), documenting sourced functions in R templates ([#292](https://github.com/ImperialCollegeLondon/ve_data_science/issues/292 "Document functions that are sourced from another script")), and explicitly referencing external R function dependencies ([#297](https://github.com/ImperialCollegeLondon/ve_data_science/issues/297 "Explicitly reference dependencies of external functions in tools/R")). I closed the enzyme concentration modeling issue because it will not be addressed in the near term ([#63](https://github.com/ImperialCollegeLondon/ve_data_science/issues/63 "Model enzyme / functional gene concentrations / compositions")).
 
-This week, I streamlined the model validation pipeline by transitioning to a per-dataset schema (#519), refactoring dataset screening processes (#514, #522), screening soil and litter datasets (#526), and implementing a Shiny dashboard (#520). For model parameterisation and input data tools, I parsed the VE codebase to build a constant database (#508) and updated the subset_nc() function (#510, addressing #509). My near-term focus is on recompiling soil input data (#538, addressing #489) and preparing the newly screened soil datasets for integration with VE model outputs (#62).
+## TODO: pending Issues and PRs
+### Urgent and High priority
+Combining the newly added soil gas flux validation dataset with VE outputs is currently blocked, awaiting VE updates ([#62](https://github.com/ImperialCollegeLondon/ve_data_science/issues/62 "Validate soil gas fluxes")). I also need to recompile soil input data ([#538](https://github.com/ImperialCollegeLondon/ve_data_science/pull/538 "489 recompile soil input data")).
 
-## Required elements ("Waiting for")
+### Medium and Low priority
+I need to update the LLM prompt to group soil microbial and enzyme constants ([#534](https://github.com/ImperialCollegeLondon/ve_data_science/issues/534 "LLM: update prompt to treat SoilMicrobialGroup or SoilEnzymeClass constants as a group")), implement RAG for VE docs after reverting changes in #506 ([#532](https://github.com/ImperialCollegeLondon/ve_data_science/issues/532 "LLM: RAG for VE docs")), and add a raw dataset filtering option to `build_validation_database` ([#523](https://github.com/ImperialCollegeLondon/ve_data_science/issues/523 "build_validation_database needs a filtering option for raw datasets")).
 
-- Urgent
-  - TaranRallings, nickwctan, Baizurah to review PR [#330](https://github.com/ImperialCollegeLondon/ve_data_science/pull/330) — *329 examine animal continuous state variables from `maliau_2`*
-  - annarallings, davidorme to review PR [#422](https://github.com/ImperialCollegeLondon/ve_data_science/pull/422) — *Pin mkdocs-material version to 9.7.0*
-  - nickwctan, arne-exe to review PR [#538](https://github.com/ImperialCollegeLondon/ve_data_science/pull/538) — *489 recompile soil input data*
-
-## Additional notes
-
-# Subtasks (as GitHub Milestones) {#sec-milestones}
+# Milestones {#sec-milestones}
 
 ## Soil parameterisation
 
