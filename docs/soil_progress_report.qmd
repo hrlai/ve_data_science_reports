@@ -145,17 +145,15 @@ issue_table <-
 
 ## Lastest description
 
-I completed a first-pass soil and litter validation pipeline in [#487](https://github.com/ImperialCollegeLondon/ve_data_science/pull/487 "Soil and litter validation pipeline (first pass)") and updated netCDF subsetting in [#510](https://github.com/ImperialCollegeLondon/ve_data_science/pull/510 "509 update `subset_nc()`") to resolve issue #509. I also reported on using LLMs for literature search of model constant values in [#431](https://github.com/ImperialCollegeLondon/ve_data_science/pull/431 "Progress report on LLM literature search for constant values") and learned to integrate Tree-sitter in [#506](https://github.com/ImperialCollegeLondon/ve_data_science/pull/506 "Enhance code splitting and documentation with Tree-sitter integration") to improve the constant parameter database of VE (for LLM use);  and progressing with [#508](https://github.com/ImperialCollegeLondon/ve_data_science/pull/508 "Return of the Jedi"). My near-term focus is to refine the validation pipeline by refactoring the dataset screening and schema tools in [#514](https://github.com/ImperialCollegeLondon/ve_data_science/pull/514 "Refactor log_dataset to screen_dataset and add_schema to improve validation screening"). Additionally, I am addressing soil spatial model parameterisation through variance partitioning in [#511](https://github.com/ImperialCollegeLondon/ve_data_science/pull/511 "Variance partitioning of soil spatial model").
+This week, I streamlined the model validation pipeline by transitioning to a per-dataset schema (#519), refactoring dataset screening processes (#514, #522), screening soil and litter datasets (#526), and implementing a Shiny dashboard (#520). For model parameterisation and input data tools, I parsed the VE codebase to build a constant database (#508) and updated the subset_nc() function (#510, addressing #509). My near-term focus is on recompiling soil input data (#538, addressing #489) and preparing the newly screened soil datasets for integration with VE model outputs (#62). Additionally, I am coordinating via recent discussions to revert specific changes (#532, targeting #506), research search terms for Maliau Basin datasets (#525), and refine script metadata templates and directory structures (#292, #297, #433, #515).
 
 ## Required elements ("Waiting for")
 
 - Urgent
   - TaranRallings, nickwctan, Baizurah to review PR [#330](https://github.com/ImperialCollegeLondon/ve_data_science/pull/330) — *329 examine animal continuous state variables from `maliau_2`*
-  - davidorme to review PR [#508](https://github.com/ImperialCollegeLondon/ve_data_science/pull/508) — *Return of the Jedi*
-  - arne-exe to review PR [#510](https://github.com/ImperialCollegeLondon/ve_data_science/pull/510) — *509 update `subset_nc()`*
-  - annarallings, nickwctan, arne-exe, Baizurah, lelavathy to review PR [#514](https://github.com/ImperialCollegeLondon/ve_data_science/pull/514) — *Refactor log_dataset to screen_dataset and add_schema to improve validation screening*
-- Not urgent
   - annarallings, davidorme to review PR [#422](https://github.com/ImperialCollegeLondon/ve_data_science/pull/422) — *Pin mkdocs-material version to 9.7.0*
+- Not urgent
+  - nickwctan, arne-exe to review PR [#538](https://github.com/ImperialCollegeLondon/ve_data_science/pull/538) — *489 recompile soil input data*
 
 ## Additional notes
 
