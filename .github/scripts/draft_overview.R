@@ -87,6 +87,28 @@ issue_number_from_url <- function(x) {
   as.integer(sub(".*/issues/([0-9]+)$", "\\1", x))
 }
 
+extract_issue_priority <- function(i) {
+  values <- i$issue_field_values
+  if (is.null(values) || length(values) == 0) {
+    return(NA_character_)
+  }
+
+  field_names <- map_chr(values, "issue_field_name", .default = NA_character_)
+  idx <- which(field_names == "Priority")
+  if (length(idx) == 0) {
+    return(NA_character_)
+  }
+
+  field <- values[[idx[1]]]
+  priority <- field$single_select_option$name
+
+  if (is.null(priority) || identical(priority, "")) {
+    NA_character_
+  } else {
+    as.character(priority)
+  }
+}
+
 # Fetch recently merged PRs (last 7 days, by hrlai)
 raw_merged_prs <- tryCatch(
   gh(
@@ -182,6 +204,7 @@ new_issues <- bind_rows_or_empty(
       html_url = i$html_url,
       author = i$user$login,
       created_at = i$created_at,
+      priority = extract_issue_priority(i),
       is_pr = !is.null(i$pull_request)
     )
   },
@@ -191,6 +214,7 @@ new_issues <- bind_rows_or_empty(
     html_url = character(),
     author = character(),
     created_at = character(),
+    priority = character(),
     is_pr = logical()
   )
 ) |>
@@ -317,14 +341,34 @@ fmt_items <- function(
   df,
   number_col = "number",
   title_col = "title",
-  url_col = "html_url"
+  url_col = "html_url",
+  extra_cols = character()
 ) {
   if (nrow(df) == 0) {
     return("(none)")
   }
   map_chr(seq_len(nrow(df)), function(i) {
+    extras <- if (length(extra_cols) == 0) {
+      character(0)
+    } else {
+      map_chr(extra_cols, function(col) {
+        value <- df[[col]][i]
+        if (is.na(value) || identical(value, "")) {
+          return(NA_character_)
+        }
+        glue("{col}: {value}")
+      }) |>
+        na.omit()
+    }
+
+    extra_text <- if (length(extras) == 0) {
+      ""
+    } else {
+      glue(" — {paste(extras, collapse = '; ')}")
+    }
+
     glue(
-      "  - #{df[[number_col]][i]}: {df[[title_col]][i]} ({df[[url_col]][i]})"
+      "  - #{df[[number_col]][i]}: {df[[title_col]][i]}{extra_text} ({df[[url_col]][i]})"
     )
   }) |>
     paste(collapse = "\n")
@@ -352,7 +396,7 @@ fmt_comment_items <- function(df) {
 context_block <- glue(
   "Merged PRs (last 7 days):\n{fmt_items(merged_prs)}\n\n",
   "Closed issues (last 7 days):\n{fmt_items(closed_issues)}\n\n",
-  "Newly opened issues (last 7 days):\n{fmt_items(new_issues)}\n\n",
+  "Newly opened issues (last 7 days):\n{fmt_items(new_issues, extra_cols = c('priority'))}\n\n",
   "Opened PRs (last 7 days):\n{fmt_items(opened_prs)}\n\n",
   "Issue comments by {user} (last 7 days):\n{fmt_comment_items(issue_comments)}"
 )
@@ -361,7 +405,7 @@ prompt <- glue(
   "
   You are helping an ecologist draft the opening section of a weekly progress report.
 
-  Write a concise, first-person summary in plain markdown. Split the summary into two short subsections: 'High and Urgent' and 'Medium and Low'. Keep each subsection tight and easy to scan, using one compact paragraph or a couple of bullets. Keep the tone terse, professional, and factual. Do not use self-congratulation or filler.
+  Write a concise, first-person summary in plain markdown. Split the summary into two short subsections: 'Urgent and High' and 'Medium and Low'. Keep each subsection tight and easy to scan, using one compact paragraph or a couple of bullets. Keep the tone terse, professional, and factual. Do not use self-congratulation or filler.
 
   Base the summary only on the source material provided below. Prioritize recent achievements from closed Issues and PRs, then near-term planned focus from open Issues, comments, and open PRs. Use the priority field on open Issues when it is present to sort the summary. Treat issues labelled Blocking or Blocked as Urgent; if an issue has no explicit priority, treat Blocking or Blocked as High/Urgent by default. Place High/Urgent items before Medium/Low items.
 
