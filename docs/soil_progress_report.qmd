@@ -145,13 +145,22 @@ issue_table <-
 
 ## Lastest description
 
-This week, I streamlined the model validation pipeline by transitioning to a per-dataset schema (#519), refactoring dataset screening processes (#514, #522), screening soil and litter datasets (#526), and implementing a Shiny dashboard (#520). For model parameterisation and input data tools, I parsed the VE codebase to build a constant database (#508) and updated the subset_nc() function (#510, addressing #509). My near-term focus is on recompiling soil input data (#538, addressing #489) and preparing the newly screened soil datasets for integration with VE model outputs (#62).
+### Urgent and High
+
+*   **Validation Database Refactoring**: We updated our validation pipeline by transitioning to a per-dataset schema ([#519](https://github.com/ImperialCollegeLondon/ve_data_science/pull/519 "Validation: switch to per-dataset schema for improved maintainability")), refactoring screening logs ([#514](https://github.com/ImperialCollegeLondon/ve_data_science/pull/514 "Validation: Refactor log_dataset to screen_dataset and add_schema to improve dataset screening")), and refining the database build process ([#522](https://github.com/ImperialCollegeLondon/ve_data_science/pull/522 "Validation: refine build_validation_database()")). 
+*   **Soil and Litter Datasets**: We screened more soil and litter datasets ([#526](https://github.com/ImperialCollegeLondon/ve_data_science/pull/526 "Validation: screen more soil and litter datasets")) to address [#62](https://github.com/ImperialCollegeLondon/ve_data_science/issues/62 "Issue 62"), though combining this with Virtual Ecosystem outputs is currently pending external repository updates. We also opened PR [#538](https://github.com/ImperialCollegeLondon/ve_data_science/pull/538 "489 recompile soil input data") to recompile soil input data, and are coordinating a revert in [#532](https://github.com/ImperialCollegeLondon/ve_data_science/issues/532 "Issue 532") before proceeding.
+
+### Medium and Low
+
+*   **Tooling and Core Codebase**: We integrated a Shiny dashboard ([#520](https://github.com/ImperialCollegeLondon/ve_data_science/pull/520 "Validation: Shiny dashboard for dataset screening")) as a new workflow tool to streamline dataset screening. Additionally, we parsed the Virtual Ecosystem codebase to build a constant database ([#508](https://github.com/ImperialCollegeLondon/ve_data_science/pull/508 "Return of the Jedi: parsing VE codebase to build a constant database")) and updated the netCDF subsetting function ([#510](https://github.com/ImperialCollegeLondon/ve_data_science/pull/510 "509 update subset_nc()")).
+*   **Issue Cleanup and Discussions**: We closed several resolved or stale issues, including [#292](https://github.com/ImperialCollegeLondon/ve_data_science/issues/292 "Issue 292") (R template script field resolution), [#297](https://github.com/ImperialCollegeLondon/ve_data_science/issues/297 "Issue 297") (R namespace verification), and [#63](https://github.com/ImperialCollegeLondon/ve_data_science/issues/63 "Issue 63") (deferred). Discussions remain active regarding notebook directory layouts ([#515](https://github.com/ImperialCollegeLondon/ve_data_science/issues/515 "Issue 515")), DOI/URL metadata fields ([#433](https://github.com/ImperialCollegeLondon/ve_data_science/issues/433 "Issue 433")), and literature search queries for Maliau Basin ([#525](https://github.com/ImperialCollegeLondon/ve_data_science/issues/525 "Issue 525")).
 
 ## Required elements ("Waiting for")
 
 - Urgent
   - TaranRallings, nickwctan, Baizurah to review PR [#330](https://github.com/ImperialCollegeLondon/ve_data_science/pull/330) — *329 examine animal continuous state variables from `maliau_2`*
   - annarallings, davidorme to review PR [#422](https://github.com/ImperialCollegeLondon/ve_data_science/pull/422) — *Pin mkdocs-material version to 9.7.0*
+- Not urgent
   - nickwctan, arne-exe to review PR [#538](https://github.com/ImperialCollegeLondon/ve_data_science/pull/538) — *489 recompile soil input data*
 
 ## Additional notes
