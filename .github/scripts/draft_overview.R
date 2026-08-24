@@ -359,11 +359,13 @@ context_block <- glue(
 
 prompt <- glue(
   "
-  You are helping an ecologist draft the opening paragraph of a weekly progress report.
+  You are helping an ecologist draft the opening section of a weekly progress report.
 
-  Write a single paragraph of 3 to 5 sentences in the first person 'I'. Keep the tone terse, professional, and factual. Do not use self-congratulation, filler, bullet points, headings, or markdown.
+  Write a concise, first-person summary in plain markdown. Split the summary into two short subsections: 'High and Urgent' and 'Medium and Low'. Keep each subsection tight and easy to scan, using one compact paragraph or a couple of bullets. Keep the tone terse, professional, and factual. Do not use self-congratulation or filler.
 
-  Base the paragraph only on the source material provided below. Summarize both recent achievements (based on closed Issues and PRs) and near-term planned focus (based on open Issues, comments and open PRs). Organize the content implicitly by grouping related work where appropriate across these categories: input data, model parameterisation, calibration, validation, and general tools. Do this naturally in prose rather than by naming the categories mechanically if that would make the paragraph awkward.
+  Base the summary only on the source material provided below. Prioritize recent achievements from closed Issues and PRs, then near-term planned focus from open Issues, comments, and open PRs. Use the priority field on open Issues when it is present to sort the summary. Treat issues labelled Blocking or Blocked as Urgent; if an issue has no explicit priority, treat Blocking or Blocked as High/Urgent by default. Place High/Urgent items before Medium/Low items.
+
+  Group related work into the broader workstream where that helps show the major areas of work, the tasks needed to complete them, and what has progressed or hit a wall. Use parent issues or linked PRs briefly when they clarify scope or remaining work, but do not force that detail into every item.
 
   When an issue, pull request, or issue comment is relevant, reference the actual number exactly as given, for example #123. If the output format supports links, render each issue or PR number as a hyperlink to its URL and use the issue or PR title as hover text; if the output format does not support that, keep the plain reference number and do not invent formatting. If a recent issue references older issues or PRs that materially matter for context, mention those older references briefly and only if they help explain the current work.
 
@@ -371,7 +373,7 @@ prompt <- glue(
 
   If the source material shows that a task involved learning a new method, tool, or workflow, mention that briefly, especially when it appears relevant for shared team learning. Do not infer progress, intent, or significance beyond what the source material supports.
 
-  Prioritize specificity, compression, and accurate grouping over completeness. If the source material is thin or uneven, write a restrained paragraph that reflects that rather than overfilling gaps.
+  Prioritize specificity, compression, and accurate grouping over completeness. If the source material is thin or uneven, write a restrained summary that reflects that rather than overfilling gaps.
   \n\n
   ",
   "{context_block}"
