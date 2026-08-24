@@ -1,8 +1,7 @@
 # draft_overview.R
 #
-# Rewrites two sections of docs/soil_progress_report.qmd:
-#   1. "## Lastest description"  — LLM-assisted summary via ellmer
-#   2. '## Required elements ("Waiting for")' — deterministic from open PRs
+# Rewrites the `# Overview` section of docs/soil_progress_report.qmd
+# using recent GitHub activity and an LLM prompt.
 #
 # Usage (locally):  Rscript .github/scripts/draft_overview.R
 # Usage (CI):       called from weekly_soil_report.yml
@@ -24,14 +23,26 @@ qmd <- "docs/soil_progress_report.qmd"
 
 # ── Shared helper ─────────────────────────────────────────────────────────────
 
-splice_section <- function(lines, heading, new_content) {
-  # Replaces content between `heading` and the next `## ` heading (exclusive)
+splice_section <- function(
+  lines,
+  heading,
+  new_content,
+  next_heading_pattern = "^## "
+) {
+  # Replaces content between `heading` and the next matching heading (exclusive)
   start <- which(lines == heading)
   if (length(start) != 1) {
     stop("Could not find heading: ", heading)
   }
-  ends <- which(grepl("^## ", lines))
-  end <- min(ends[ends > start]) - 1L
+
+  ends <- which(grepl(next_heading_pattern, lines))
+  next_end <- ends[ends > start]
+  end <- if (length(next_end) == 0) {
+    length(lines)
+  } else {
+    min(next_end) - 1L
+  }
+
   c(
     lines[seq_len(start - 1)],
     heading,
@@ -42,11 +53,37 @@ splice_section <- function(lines, heading, new_content) {
   )
 }
 
+normalize_overview_content <- function(x) {
+  x <- trimws(or_else(x, ""))
+
+  if (identical(x, "")) {
+    return("*[Auto-draft failed — please update manually.]*")
+  }
+
+  x <- strsplit(x, "\n", fixed = TRUE)[[1]]
+  x <- x[!grepl("^# Overview(\\s+\\{#.*\\})?$", trimws(x), perl = TRUE)]
+  x <- trimws(x, which = "right")
+
+  while (length(x) > 0 && identical(trimws(x[[1]]), "")) {
+    x <- x[-1]
+  }
+
+  while (length(x) > 0 && identical(trimws(x[[length(x)]]), "")) {
+    x <- x[-length(x)]
+  }
+
+  if (length(x) == 0) {
+    "*[Auto-draft failed — please update manually.]*"
+  } else {
+    x
+  }
+}
+
 # ── Read the current .qmd ────────────────────────────────────────────────────
 lines <- readLines(qmd)
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Section B — LLM-assisted: rewrite "## Lastest description"
+# LLM-assisted: rewrite the full `# Overview` section
 # ══════════════════════════════════════════════════════════════════════════════
 
 since_7d <- format(Sys.time() - days(7), "%Y-%m-%dT%H:%M:%SZ")
@@ -455,74 +492,23 @@ prompt <- glue(
   "{context_block}"
 )
 
-description_content <- tryCatch(
+overview_content <- tryCatch(
   {
     chat <- ellmer::chat_google_gemini()
     response <- chat$chat(prompt)
-    trimws(response)
+    normalize_overview_content(response)
   },
   error = function(e) {
     message("LLM call failed: ", conditionMessage(e))
-    "*[Auto-draft failed — please update manually.]*"
+    normalize_overview_content(NA_character_)
   }
-)
-
-lines <- splice_section(lines, "## Lastest description", description_content)
-
-# ══════════════════════════════════════════════════════════════════════════════
-# Section A — Deterministic: rewrite '## Required elements ("Waiting for")'
-# ══════════════════════════════════════════════════════════════════════════════
-
-raw_prs <- gh(
-  "/repos/{owner}/{repo}/pulls",
-  owner = owner,
-  repo = repo,
-  state = "open",
-  .limit = Inf
-)
-
-prs <-
-  tibble(
-    number = map_int(raw_prs, "number"),
-    title = map_chr(raw_prs, "title"),
-    html_url = map_chr(raw_prs, "html_url"),
-    author = map_chr(raw_prs, c("user", "login")),
-    created_at = map_chr(raw_prs, "created_at") |> ymd_hms(),
-    reviewers = map(raw_prs, \(p) map_chr(p$requested_reviewers, "login"))
-  ) |>
-  filter(
-    author == user,
-    map_lgl(reviewers, \(r) length(r) > 0)
-  ) |>
-  mutate(
-    age_days = as.numeric(difftime(Sys.time(), created_at, units = "days")),
-    urgent = age_days > 7,
-    reviewer_list = map_chr(reviewers, paste, collapse = ", ")
-  ) |>
-  arrange(desc(urgent), desc(age_days))
-
-build_bullets <- function(df, label) {
-  if (nrow(df) == 0) {
-    return(character(0))
-  }
-  items <- map_chr(seq_len(nrow(df)), \(i) {
-    r <- df[i, ]
-    glue(
-      "  - {r$reviewer_list} to review PR [#{r$number}]({r$html_url}) — *{r$title}*"
-    )
-  })
-  c(label, items)
-}
-
-waiting_for_content <- c(
-  build_bullets(filter(prs, urgent), "- Urgent"),
-  build_bullets(filter(prs, !urgent), "- Not urgent")
 )
 
 lines <- splice_section(
   lines,
-  '## Required elements ("Waiting for")',
-  waiting_for_content
+  "# Overview {#sec-overview}",
+  overview_content,
+  next_heading_pattern = "^# "
 )
 
 # ── Write back ────────────────────────────────────────────────────────────────
@@ -530,5 +516,5 @@ writeLines(lines, qmd)
 message(
   "Updated '",
   qmd,
-  "' — Lastest description and Waiting for sections refreshed."
+  "' — Overview section refreshed."
 )
